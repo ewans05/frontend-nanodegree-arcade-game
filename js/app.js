@@ -1,9 +1,11 @@
 // Enemies our player must avoid
-var Enemy = function() {
+var Enemy = function(x, y) {
     // Variables applied to each of our instances go here,
     // we've provided one for you to get started
-    this.x = 50;
-    this.y = 100;
+    //this.row = 60;
+    this.x = x;
+    this.y = y;
+
     // The image/sprite for our enemies, this uses
     // a helper we've provided to easily load images
     this.sprite = 'images/enemy-bug.png';
@@ -15,6 +17,7 @@ Enemy.prototype.update = function(dt) {
     // You should multiply any movement by the dt parameter
     // which will ensure the game runs at the same speed for
     // all computers.
+    this.x += (Math.floor((Math.random() * 100) + 99) * dt);
 };
 
 // Draw the enemy on the screen, required method for game
@@ -26,8 +29,8 @@ Enemy.prototype.render = function() {
 // This class requires an update(), render() and
 // a handleInput() method.
 var Player = function() {
-    this.x = 300;
-    this.y = 485;
+    this.x = 205;
+    this.y = 425;
     this.sprite = 'images/char-horn-girl.png';
 };
 
@@ -40,11 +43,11 @@ Player.prototype.render = function() {
 };
 
 Player.prototype.handleInput = function(keyCode) {
-    if(keyCode == left) {
+    if(keyCode == 'left') {
         this.x -= 30;
-    } else if (keyCode == right) {
+    } else if (keyCode == 'right') {
         this.x += 30;
-    } else if (keyCode == up) {
+    } else if (keyCode == 'up') {
         this.y -= 30;
     } else {
         this.y += 30;
@@ -55,10 +58,28 @@ Player.prototype.handleInput = function(keyCode) {
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies
 // Place the player object in a variable called player
-var enemy = new Enemy();
+
+//var enemy = new Enemy();*****
 
 var allEnemies = [];
 
+//var bug = new Enemy(-10, 60);
+/*var enemy = function() {
+
+};*/
+
+
+for(i = 0; allEnemies.length <= 2; i++ ) {
+    var bug = new Enemy(-10, 60);
+    allEnemies.push(bug);
+    Enemy.y += 85;
+    Enemy.x -=15;
+};
+
+/*while (allEnemies.length <= 3) {
+    allEnemies.push(new Enemy());
+};
+*/
 var player = new Player();
 
 
