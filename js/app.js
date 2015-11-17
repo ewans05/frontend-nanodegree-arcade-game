@@ -1,23 +1,27 @@
 // Enemies our player must avoid
-var Enemy = function(x, y) {
+/*var Enemy = function(x, y) {
     // Variables applied to each of our instances go here,
     // we've provided one for you to get started
-    //this.row = 60;
-    this.x = x;
+    //this.speed = speed;
+    this.x = -25;
     this.y = y;
 
     // The image/sprite for our enemies, this uses
     // a helper we've provided to easily load images
     this.sprite = 'images/enemy-bug.png';
+};*/
+ var Enemy = function(x, y) {
+    this.x = x;
+    this.y = y;
+    this.sprite = 'images/enemy-bug.png';
 };
-
 // Update the enemy's position, required method for game
 // Parameter: dt, a time delta between ticks
 Enemy.prototype.update = function(dt) {
     // You should multiply any movement by the dt parameter
     // which will ensure the game runs at the same speed for
     // all computers.
-    this.x += (Math.floor((Math.random() * 100) + 99) * dt);
+    this.x += (Math.floor((Math.random() * (200 - 75)) + 75) * dt);
 };
 
 // Draw the enemy on the screen, required method for game
@@ -59,30 +63,36 @@ Player.prototype.handleInput = function(keyCode) {
 // Place all enemy objects in an array called allEnemies
 // Place the player object in a variable called player
 
-//var enemy = new Enemy();*****
-
 var allEnemies = [];
 
-//var bug = new Enemy(-10, 60);
-/*var enemy = function() {
-
+var enemyRow = [60, 145, 230];
+//var enemyStart = [];
+/*for(i = 0; enemyStart.length <= 2; i++ ) {
+    var enemyXPos = function() {
+        return ((Math.random() * (-100 - (-5))) + -5);
+    };
+    enemyStart.push(enemyXPos);
 };*/
-
+var enemyXPos = function() {
+    return ((Math.random() * (-400 - (-5))) + -5);
+};
 
 for(i = 0; allEnemies.length <= 2; i++ ) {
-    var bug = new Enemy(-10, 60);
+    var bug = new Enemy(enemyXPos(), enemyRow[i]);
     allEnemies.push(bug);
-    Enemy.y += 85;
-    Enemy.x -=15;
 };
+console.log(allEnemies);
+//console.log(enemyStart);
 
-/*while (allEnemies.length <= 3) {
-    allEnemies.push(new Enemy());
-};
-*/
 var player = new Player();
 
+/*if (Enemy.x = 506 || Player.x = 506) {
+    updateEntities(dt);
+};
 
+if (Player.y === Enemy.y) {
+    Player.reset();
+};*/
 
 // This listens for key presses and sends the keys to your
 // Player.handleInput() method. You don't need to modify this.
