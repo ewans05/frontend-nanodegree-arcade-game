@@ -1,15 +1,5 @@
+"use strict"
 // Enemies our player must avoid
-/*var Enemy = function(x, y) {
-    // Variables applied to each of our instances go here,
-    // we've provided one for you to get started
-    //this.speed = speed;
-    this.x = -25;
-    this.y = y;
-
-    // The image/sprite for our enemies, this uses
-    // a helper we've provided to easily load images
-    this.sprite = 'images/enemy-bug.png';
-};*/
  var Enemy = function(x, y) {
     this.x = x;
     this.y = y;
@@ -22,6 +12,12 @@ Enemy.prototype.update = function(dt) {
     // which will ensure the game runs at the same speed for
     // all computers.
     this.x += (Math.floor((Math.random() * (200 - 75)) + 75) * dt);
+    if (this.x >= 505) {
+        allEnemies.splice();
+        this.x = enemyXPos();
+        //makeBugs();
+    };
+    //this.reset();
 };
 
 // Draw the enemy on the screen, required method for game
@@ -39,9 +35,11 @@ var Player = function() {
 };
 
 Player.prototype.update = function() {
-    
-};
 
+};
+Player.prototype.reset = function() {
+    player = new Player;
+}
 Player.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);     
 };
@@ -61,37 +59,37 @@ Player.prototype.handleInput = function(keyCode) {
 
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies
-// Place the player object in a variable called player
-
 var allEnemies = [];
 
-var enemyRow = [60, 145, 230];
-//var enemyStart = [];
-/*for(i = 0; enemyStart.length <= 2; i++ ) {
-    var enemyXPos = function() {
-        return ((Math.random() * (-100 - (-5))) + -5);
-    };
-    enemyStart.push(enemyXPos);
-};*/
+//Create random off-screen enemy x start coordinates
 var enemyXPos = function() {
     return ((Math.random() * (-400 - (-5))) + -5);
 };
 
-for(i = 0; allEnemies.length <= 2; i++ ) {
-    var bug = new Enemy(enemyXPos(), enemyRow[i]);
-    allEnemies.push(bug);
+//Create bugs
+var enemyRow = [60, 145, 230];
+function makeBugs() {
+    for(var i = 0; allEnemies.length <= 2; i++ ) {
+        var bug = new Enemy(enemyXPos(), enemyRow[i]);
+        allEnemies.push(bug);
+    }
 };
+makeBugs();
 console.log(allEnemies);
-//console.log(enemyStart);
 
+
+// Place the player object in a variable called player
 var player = new Player();
+/*
 
-/*if (Enemy.x = 506 || Player.x = 506) {
-    updateEntities(dt);
-};
 
-if (Player.y === Enemy.y) {
-    Player.reset();
+Player.prototype.checkCollisions = function() {
+    for (i = 0; i <= allEnemies.length; i++) {
+        if (allEnemies[i].x == player.x + 30 && 
+        allEnemies[i].y == player.y + 30) {
+            player.reset();
+        }
+    }
 };*/
 
 // This listens for key presses and sends the keys to your
